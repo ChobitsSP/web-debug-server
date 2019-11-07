@@ -24,15 +24,14 @@
   <script>
     "use strict";
 
-    const ws_host = "ws://localhost:7001";
-    const room_url = window.location.host + "/";
+    const ws_host = window.location.host + "/";
 
     // browser
     const log = console.log;
 
     function init_socket(logid) {
       // init
-      const socket = io(room_url, {
+      const socket = io(ws_host, {
         transports: ["websocket"]
       });
 
