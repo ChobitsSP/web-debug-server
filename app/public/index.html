@@ -20,7 +20,69 @@
   <script src="https://lib.baomitu.com/axios/0.18.0/axios.min.js"></script>
   <script src="https://lib.baomitu.com/socket.io/2.3.0/socket.io.js"></script>
 
-  <script src="index.js"></script>
+  <script>
+    "use strict";
+
+    const ws_host = "ws://localhost:7001";
+    const room_url = window.location.host + "/";
+
+    // browser
+    const log = console.log;
+
+    function init_socket(logid) {
+      // init
+      const socket = io(room_url, {
+        transports: ["websocket"]
+      });
+
+      socket.on("connect", () => {
+        const id = socket.id;
+
+        log("#connect,", id, socket);
+
+        // 监听自身 id 以实现 p2p 通讯
+        socket.on(logid, data => {
+          app.AddLog(data);
+        });
+      });
+
+      // 系统事件
+      socket.on("disconnect", msg => {
+        log("#disconnect", msg);
+      });
+
+      socket.on("disconnecting", () => {
+        log("#disconnecting");
+      });
+
+      socket.on("error", () => {
+        log("#error");
+      });
+
+      window.socket = socket;
+    }
+
+    const app = new Vue({
+      el: "#app",
+      data() {
+        return {
+          is_start: false,
+          logid: null,
+          list: []
+        };
+      },
+      methods: {
+        SubLogId() {
+          if (!this.logid) return;
+          this.is_start = true;
+          init_socket(this.logid);
+        },
+        AddLog(data) {
+          console.log(data);
+        }
+      }
+    });
+  </script>
 </body>
 
 </html>
