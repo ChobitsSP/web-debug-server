@@ -7,7 +7,7 @@
 <body>
   <div id="app">
     <input type="text" :readonly="is_start" v-model="logid" />
-    <button type="button" @click="SubLogId">开始订阅</button>
+    <button type="button" :disabled="is_start" @click="SubLogId">开始订阅</button>
     <button type="button" :disabled="!is_start" @click="TestLog">TestLog</button>
     <button type="button" @click="clear">clear</button>
 
