@@ -78,6 +78,7 @@
           init_socket(this.logid);
         },
         AddLog(data) {
+          this.list.push(data);
           console.log(data);
         },
         async TestLog() {
