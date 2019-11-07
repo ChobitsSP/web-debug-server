@@ -1,0 +1,14 @@
+{
+  "name": "web-debug-server",
+  "script": "./server.js",
+  "cwd": "./",
+  "watch": ["app", "config"],
+  "ignore_watch": ["node_modules", "logs", "run", "app/public"],
+  "watch_options": {
+    "followSymlinks": false
+  },
+  "max_restarts": 2,
+  "env": {
+    "EGG_SERVER_ENV": "prod"
+  }
+}
