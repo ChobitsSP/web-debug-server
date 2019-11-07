@@ -8,6 +8,7 @@
   <div id="app">
     <input type="text" :readonly="is_start" v-model="logid" />
     <button type="button" @click="SubLogId">开始订阅</button>
+    <button type="button" :disabled="!is_start" @click="TestLog">TestLog</button>
 
     <ul>
       <li v-for="log in list" :key="log.id">
@@ -79,6 +80,11 @@
         },
         AddLog(data) {
           console.log(data);
+        },
+        async TestLog() {
+          const url = "/api/log/send";
+          const data = { id: this.logid, data: JSON.stringify({ time: Date.now() }) };
+          await axios.post(url, data);
         }
       }
     });
