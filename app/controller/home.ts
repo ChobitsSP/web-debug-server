@@ -7,11 +7,18 @@ export default class HomeController extends Controller {
   }
   public async exchange() {
     const { ctx, app } = this;
-    const data = ctx.request.body;
+    const body = ctx.request.body;
     const nsp = app.io.of("/");
 
+    ctx.validate(
+      {
+        id: "string"
+      },
+      body
+    );
+
     try {
-      nsp.emit("global", data);
+      nsp.emit(body.id, body.data);
     } catch (error) {
       app.logger.error(error);
     }
