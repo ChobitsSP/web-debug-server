@@ -9,9 +9,10 @@
     <input type="text" :readonly="is_start" v-model="logid" />
     <button type="button" @click="SubLogId">开始订阅</button>
     <button type="button" :disabled="!is_start" @click="TestLog">TestLog</button>
+    <button type="button" @click="clear">clear</button>
 
     <ul>
-      <li v-for="log in list" :key="log.id">
+      <li v-for="log in list">
         {{ log }}
       </li>
     </ul>
@@ -80,6 +81,9 @@
         AddLog(data) {
           this.list.push(data);
           console.log(data);
+        },
+        clear() {
+          this.list = [];
         },
         async TestLog() {
           const url = "/api/log/send";
