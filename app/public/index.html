@@ -78,7 +78,8 @@
           this.is_start = true;
           init_socket(this.logid);
         },
-        AddLog(data) {
+        AddLog(json) {
+          var data = JSON.parse(json);
           this.list.push(data);
           console.log(data);
         },
